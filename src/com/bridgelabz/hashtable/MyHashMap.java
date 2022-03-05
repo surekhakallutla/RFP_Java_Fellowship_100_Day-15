@@ -4,23 +4,41 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class MyHashMap {
+public class MyHashMap<K, V> {
+	
+	MyLinkedList<K> myLinkedList;
 
-	public static void main(String[] args) {
-		String message = "To be or not to be";
-		
-		Map<String, Integer> myMapList = new HashMap<>();
-		asList(message.split(" ")).put(null, message)
-		
-		System.out.println("my List "+ myMapList);
-		
-		
-		
+	public MyHashMap() {
+		myLinkedList = new MyLinkedList<>();
 	}
 
-	private static Map<Integer, String> asList(String[] split) {
-		
-		return null;
+	public V get(K key) {
+		MyMapNode<K, V> myMapNode = (MyMapNode<K, V>) myLinkedList.search(key);
+		return myMapNode == null ? null : myMapNode.getValue();
 	}
 
+	public void add(K key, V value) {
+		MyMapNode<K, V> myMapNode = (MyMapNode<K, V>) myLinkedList.search(key);
+		if (myMapNode == null) {
+			myMapNode = new MyMapNode<K, V>();
+			myMapNode.setKey(key);
+			myMapNode.setValue(value);
+			myLinkedList.add(myMapNode);
+		} else {
+			myMapNode.setValue(value);
+		}
+	}
+
+	public int size() {
+		return myLinkedList.size();
+	}
+
+	public boolean remove(K key) {
+		return myLinkedList.remove(key);
+	}
+
+	@Override
+	public String toString() {
+		return "MyHashMapNodes{" + myLinkedList + "}";
+	}
 }
